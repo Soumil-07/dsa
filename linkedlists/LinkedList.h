@@ -47,6 +47,7 @@ private:
     bool ensureHead(T data);
 
 public:
+    LinkedList();
     ~LinkedList();
 
     void print();

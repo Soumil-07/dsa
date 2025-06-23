@@ -1,10 +1,11 @@
 #include "LinkedList.h"
 #include <iostream>
+#include <memory>
 
 int main()
 { 
     std::cout << "BLOCK 1\n";
-    auto ll = new LinkedList<int>();
+    auto ll = std::make_unique<LinkedList<int>>();
     ll->addToEnd(5);
     ll->addToEnd(12);
     ll->addToStart(42);
@@ -18,6 +19,4 @@ int main()
     ll->print();
 
     std::cout << std::boolalpha << ll->hasLoop() << std::endl;
-
-    delete ll;
 }

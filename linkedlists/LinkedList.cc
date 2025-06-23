@@ -2,6 +2,11 @@
 #include "LinkedList.h"
 
 template <typename T>
+LinkedList<T>::LinkedList() : head(nullptr)
+{
+}
+
+template <typename T>
 LinkedList<T>::~LinkedList()
     {
     auto current = head;
@@ -81,6 +86,14 @@ void LinkedList<T>::insertAfter(T key, T data)
 template <typename T>
 void LinkedList<T>::insertBefore(T key, T data)
 {
+    if (head == nullptr) return;
+    // special case: insert before head
+    if (head->getData() == key)
+    {
+        addToStart(data);
+        return;
+    }
+
     auto node = this->head;
     while (node != nullptr)
     {
@@ -96,9 +109,14 @@ void LinkedList<T>::insertBefore(T key, T data)
 template <typename T>
 void LinkedList<T>::deleteAt(T key)
 {
+    if (this->head == nullptr)
+        return;
+
     if (this->head->getData() == key)
     {
+        auto toDelete = this->head;
         this->head = this->head->getNext();
+        delete this->head;
         return;
     }
 
@@ -107,7 +125,9 @@ void LinkedList<T>::deleteAt(T key)
     {
         if (node->getNext() != nullptr && node->getNext()->getData() == key)
         {
+            auto toDelete = node->getNext();
             node->setNext(node->getNext()->getNext());
+            delete toDelete;
             break;
         }
         node = node->getNext();
@@ -117,6 +137,7 @@ void LinkedList<T>::deleteAt(T key)
 template <typename T>
 bool LinkedList<T>::hasLoop()
 {
+    if (head == nullptr) return false;
     auto fastPtr = head, slowPtr = head;
 
     while (true)
