@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Graph.h"
+#include "WeightedGraph.h"
 
 int main()
 {
@@ -55,4 +56,46 @@ int main()
         std::cout << node << " ";
     }
     std::cout << std::endl;
+
+    // topological sort graph g3
+    // reserve 1…8, ignore index 0
+    Graph g3( /*numNodes=*/9, /*numEdges=*/10 );
+
+    // “ID” here can be any unique index in [1..9); we’ll just use 1…9
+    g3.insertEdge(6, 2, 1);   // 6 → 2
+    g3.insertEdge(1, 2, 2);   // 1 → 2
+    g3.insertEdge(3, 4, 3);   // 3 → 4
+    g3.insertEdge(3, 7, 4);   // 3 → 7
+    g3.insertEdge(1, 4, 5);   // 1 → 4
+    g3.insertEdge(2, 5, 6);   // 2 → 5
+    g3.insertEdge(2, 8, 7);   // 2 → 8
+    g3.insertEdge(2, 7, 8);   // 2 → 7
+    g3.insertEdge(4, 8, 9);   // 4 → 8
+
+    std::cout << "Topological sort of g3: ";
+    std::vector<int> topSortResult = g3.topologicalSort();
+    for (int node : topSortResult)
+    {
+        std::cout << node << " ";
+    }
+    std::cout << std::endl;
+
+    // 5 nodes (0…4), 6 edges
+    WeightedGraph g4(5, 6);
+
+    // insertEdg4e(from, to, id, weight)
+    g4.insertEdge(0, 1, 0, 4);
+    g4.insertEdge(0, 2, 1, 1);
+    g4.insertEdge(2, 1, 2, 2);
+    g4.insertEdge(1, 3, 3, 1);
+    g4.insertEdge(2, 3, 4, 5);
+    g4.insertEdge(3, 4, 5, 3);
+
+    int src = 0;
+    std::vector<int> dist = g4.dijkstrasShortestPaths(src);
+
+    std::cout << "Shortest distances from node " << src << ":\n";
+    for (int u = 0; u < (int)dist.size(); ++u) {
+        std::cout << "  node " << u << ": " << dist[u] << "\n";
+    }
 }
