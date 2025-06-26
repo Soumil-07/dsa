@@ -8,6 +8,7 @@ int main()
     heap.insert(3);
     heap.insert(8);
     heap.insert(1);
+    heap.remove(5);
 
     while (!heap.empty())
     {

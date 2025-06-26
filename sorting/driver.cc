@@ -1,5 +1,8 @@
 #include <iostream>
 #include "bucketSort.h"
+#include "insertionSort.h"
+#include "stoogeSort.h"
+#include "quickSort.h"
 
 int main()
 {
@@ -15,6 +18,19 @@ int main()
 
     std::cout << "Sorted array: ";
     for (double num : arr) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    std::vector<int> vec = {5, 2, 9, 1, 5, 6};
+    std::cout << "Original vector: ";
+    for (int num : vec) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+    quickSort(vec);
+    std::cout << "Sorted vector: ";
+    for (int num : vec) {
         std::cout << num << " ";
     }
     std::cout << std::endl;

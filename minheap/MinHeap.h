@@ -30,14 +30,21 @@ public:
         return _data.empty() ? std::nullopt : std::make_optional(_data.front());
     }
 
-    void pop()
+    void remove(int key)
     {
         if (_data.empty()) return;
 
-        std::swap(_data.front(), _data.back());
+        int idx = -1;
+        for (int i = 0; i < _data.size(); i++)
+        {
+            if (_data[i] == key) idx = i;
+        }
+        if (idx == -1) return;
+
+        std::swap(_data[idx], _data.back());
         _data.pop_back();
 
-        int idx = 0;
+        idx = 0;
         while (true)
         {
             int left = 2 * idx + 1;
@@ -54,6 +61,11 @@ public:
             std::swap(_data[idx], _data[smallest]);
             idx = smallest;
         }
+    }
+
+    void pop()
+    {
+        if (!this->empty()) this->remove(_data[0]);
     }
 
     bool empty() const
